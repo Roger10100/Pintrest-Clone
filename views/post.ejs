@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Details</title>
+  <!-- <link rel="stylesheet" href="/stylesheets/postcss.css"> -->
+</head>
+<body>
+  <!-- <nav>
+    <div class="logo">
+      <h5>LOGO</h5>
+    </div>
+    <ul class="navLink">
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Projects</a></li>
+    </ul>
+    <div class="lines">
+      <div class="l1"></div>
+      <div class="l2"></div>
+      <div class="l3"></div>
+    </div>
+  </nav> -->
+
+  <header>
+    <h1>Post Details</h1>
+  </header> 
+
+  <div class="container">
+    <div class="box">
+      <img src="/images/uploads/<%= post.image %>" alt="image">
+      <div class="caption"><%= post.imagetext %></div>
+
+      <!-- Like Button -->
+      <form action="/posts/<%= post._id %>/like" method="POST">
+        <button type="submit"><%= post.likes.includes(user._id) ? 'Unlike' : 'Like' %></button>
+        <span><%= post.likes.length %> Likes</span>
+      </form>
+
+      <!-- Comment Form -->
+      <form action="/posts/<%= post._id %>/comment" method="POST">
+        <input type="text" name="text" placeholder="Add a comment..." required>
+        <button type="submit">Comment</button>
+      </form>
+
+      <!-- Display Comments -->
+      <div class="comments">
+        <% post.comments.forEach(comment => { %>
+        <div class="comment">
+          <p><%= comment.text %></p>
+          <small><%= comment.user.username %> - <%= comment.date.toLocaleString() %></small>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script>
+    const navSlide = () => {
+      const lines = document.querySelector('.lines');
+      const nav = document.querySelector('.navLink');
+      
+      lines.addEventListener('click', () => {
+        nav.classList.toggle('nav-active');
+        // Line Animation
+        lines.classList.toggle('toggle');
+      });
+    }
+    navSlide();
+  </script>
+</body>
+</html>
